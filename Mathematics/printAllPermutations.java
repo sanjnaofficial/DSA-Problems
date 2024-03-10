@@ -21,10 +21,7 @@ public class printAllPermutations {
             str=swap(str,i,j);
             permute(str,i+1);
             str=swap(str,i,j);
-        }
-    
-
-       
+        }       
     }
 
     static String swap(String str,int i,int j){
