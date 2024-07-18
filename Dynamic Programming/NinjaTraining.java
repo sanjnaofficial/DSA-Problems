@@ -1,10 +1,12 @@
+import java.util.Arrays;
 public class NinjaTraining {
+
     
 }
 
 class Solution {
-    //recursive solution
-    public static int f(int day, int last, int[][]points){
+    //recursive solution with memoization
+    public static int f(int day, int last, int[][]points, int[][] dp){
         if(day==0){
             int maxi=0;
             for(int i=0;i<3;i++){
@@ -14,19 +16,28 @@ class Solution {
             }
             return maxi;
         }
+
+        if(dp[day][last]!=-1) return dp[day][last];
+
         int maxi=0;
         for(int i=0;i<3;i++){
             if(i!=last){
-                int point=points[day][i]+f(day-1,i,points);
+                int point=points[day][i]+f(day-1,i,points,dp);
                 maxi=Math.max(maxi,point);
             }
         }
-        return maxi;
+        dp[day][last]=maxi;
+        return dp[day][last];
     }
     public static int ninjaTraining(int n, int points[][]) {
 
         // Write your code here..
-        return f(n-1,3,points);
+        int[][] dp= new int[n][4];
+        for(int[] arr: dp){
+            Arrays.fill(arr, -1);
+        }
+
+        return f(n-1,3,points, dp);
     }
 
 }
